@@ -9,7 +9,7 @@ import AdminRouter from './routes/AdminRoute.js';
 import mongoDb from './config/mongoDb.js';
 
 let app = express();
-let port =  3001;
+let port = process.env.PORT ||3001;
 await mongoDb()
 
 let allowedOrigins = ['http://localhost:5173']
