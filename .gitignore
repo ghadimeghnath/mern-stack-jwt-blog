@@ -1,0 +1,16 @@
+# General Ignore 
+.DS_Store
+*.log
+
+# 1. Root-Level
+/node_modules
+
+# 2. Frontend (Client) 
+/frontend/node_modules
+/frontend/build
+/frontend/.env
+
+# 3. Backend (Server) 
+/backend/node_modules
+/backend/dist
+/backend/.env
