@@ -5,7 +5,6 @@ import authAdmin from '../middleware/authAdmin.js';
 let router = express.Router();
 
 router.get('/api/allblogs',AllBlogs);
-router.get('/api/allblogs',AllBlogs);
 router.post('/api/blogs/addBlogs',authAdmin,AddBlog)
 
 export default router

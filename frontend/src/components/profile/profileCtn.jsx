@@ -26,7 +26,7 @@ function ProfileCtn() {
 
   const handleAdminLogout = async () => {
     try {
-      const req = await fetch("http://localhost:3001/api/auth/admin/logout", {
+      const req = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/auth/admin/logout`, {
         method: "GET",
         credentials: "include",
       });
