@@ -24,11 +24,15 @@ export const AddBlog = async (req, res)=>{
     }
 }
 
-export const deleteBlog = async()=>{
+export const deleteBlog = async(req, res)=>{
     try {
-        
-        
+        const {blogId} = await req.body;
+        if (!blogId) {
+            return res.json({success: false, message: "Require BlogId"})
+        }
+        await res.json({success: true, message: `${blogId} Deleted Successfully`} );
+            await Blog.deleteOne({_id: blogId});
     } catch (error) {
-        
+        return res.json({success: false, message: error.message});
     }
 }

@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 function Admin() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-950 dark:to-black transition-all duration-300">
+    <div className="relative min-h-screen flex flex-col bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-950 dark:to-black transition-all duration-300">
       {/* Navbar */}
       <Nav title="Admin" />
 
@@ -18,9 +18,10 @@ function Admin() {
 
         {/* Main Cards / Admin Content */}
         <main className="flex-1 overflow-hidden">
-          <CardsCtn isAdmin={true} admin={<Outlet/>} />
+          <CardsCtn isAdmin={true} admin={<Outlet />} />
         </main>
       </div>
+      
     </div>
   );
 }
