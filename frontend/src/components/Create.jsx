@@ -12,7 +12,7 @@ function Create() {
     setLoading(true);
 
     try {
-      const request = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/blogs/addBlogs`, {
+      const request = await fetch(`${import.meta.env.VITE_BACKEND_URL}blogs/api/blogs/addBlogs`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, subtitle, content }),
