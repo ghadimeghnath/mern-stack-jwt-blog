@@ -6,7 +6,6 @@ function Create() {
   const [subtitle, setSubTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-  const baseUrl = "http://localhost:3001/blogs/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +16,7 @@ function Create() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, subtitle, content }),
+        credentials: 'include',
       });
 
       const response = await request.json();
