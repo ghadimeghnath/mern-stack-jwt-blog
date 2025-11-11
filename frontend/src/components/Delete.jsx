@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ArrowRight, Trash2Icon } from "lucide-react";
-import tshirt from "/images/tshirt.jpg";
+import blogImg from "/images/blog.webp";
+
 
 
 function Delete() {
@@ -40,7 +41,7 @@ function Delete() {
             {/* Image */}
             <div className="h-48 w-full overflow-hidden">
               <img
-                src={tshirt}
+                src={blogImg}
                 alt={blog.title}
                 className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
