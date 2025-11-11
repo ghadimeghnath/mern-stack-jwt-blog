@@ -14,7 +14,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const request = await fetch("http://localhost:3001/api/auth/login", {
+      const request = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

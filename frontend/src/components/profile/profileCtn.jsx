@@ -9,7 +9,7 @@ function ProfileCtn() {
 
   const handleUserLogout = async () => {
     try {
-      const request = await fetch("http://localhost:3001/api/auth/logout", {
+      const request = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/auth/logout`, {
         method: "GET",
         credentials: "include",
       });

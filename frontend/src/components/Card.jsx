@@ -7,7 +7,7 @@ function Card() {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch("http://localhost:3001/blogs/api/allblogs",{
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}blogs/api/allblogs`,{
         method: 'GET',
         credentials:'include',
       });

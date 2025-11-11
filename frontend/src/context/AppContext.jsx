@@ -17,7 +17,7 @@ export const AppContextProvider = ({children})=>{
     // user authentication on first render
     const checkUserAuthStatus = async()=>{
        try {
-         const request = await fetch("http://localhost:3001/api/auth/is-auth",{
+         const request = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/auth/is-auth`,{
             method: 'GET',
             credentials: 'include',
         })
@@ -36,7 +36,7 @@ export const AppContextProvider = ({children})=>{
 
     const checkAdminAuthentication = async()=>{
         try {
-            const req = await fetch("http://localhost:3001/api/auth/admin/is-admin",{
+            const req = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/auth/admin/is-admin`,{
             method: 'GET',
             credentials: 'include'
         })

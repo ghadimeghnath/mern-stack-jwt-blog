@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
-const Client = lazy(() => import("../client/client"));
+const Client = lazy(() => import("../client/Client"));
 const Admin = lazy(() => import("../admin/Admin"));
 import Create from "../components/Create";
 import Delete from "../components/Delete";

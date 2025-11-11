@@ -14,7 +14,7 @@ function AdminLogin() {
     e.preventDefault();
 
     try {
-      const request = await fetch("http://localhost:3001/api/auth/admin/login", {
+      const request = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/auth/admin/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
