@@ -8,10 +8,13 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setUser, setShowComponent } = useAppContext();
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
     try {
       const request = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/auth/login`, {
@@ -33,6 +36,8 @@ function Login() {
       }
     } catch (error) {
       toast.error(error.message);
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -94,9 +99,10 @@ function Login() {
         {/* Submit Button */}
         <button
           type="submit"
+          disabled= {loading}
           className="w-full py-2.5 mt-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 active:scale-[0.98]"
         >
-          Sign In
+           {loading ? "Signing In": "Sign In"}
         </button>
 
         {/* Divider */}
@@ -113,9 +119,11 @@ function Login() {
           Don’t have an account?{" "}
           <Link
             to="/profile/register"
+           
             className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium"
           >
-            Sign up
+
+           Sign-Up
           </Link>
         </p>
       </form>

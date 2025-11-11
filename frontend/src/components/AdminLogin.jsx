@@ -8,11 +8,13 @@ function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setAdmin, setShowComponent } = useAppContext();
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true)
     try {
       const request = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/auth/admin/login`, {
         method: "POST",
@@ -36,6 +38,8 @@ function AdminLogin() {
       }
     } catch (error) {
       toast.error(error.message);
+    } finally{
+      setLoading(false)
     }
   };
 
@@ -55,6 +59,15 @@ function AdminLogin() {
         <h2 className="text-3xl font-semibold text-center text-gray-800 dark:text-white mb-6">
           Admin Portal 🔐
         </h2>
+        <div className="bg-gray-300 rounded mb-2 px-2 py-3 dark:bg-gray-700">
+
+        <h2 className=" text-gray-800 dark:text-white">
+          Email : admin@gmail.com
+        </h2>
+        <h2 className=" text-gray-800 dark:text-white">
+         Password : admin123
+        </h2>
+        </div>
 
         {/* Email Field */}
         <div className="mb-4">
@@ -97,9 +110,14 @@ function AdminLogin() {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-2.5 mt-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 active:scale-[0.98]"
+           disabled={loading}
+          className={`w-full py-2.5 mt-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 active:scale-[0.98]${
+              loading
+                ? "bg-indigo-400 cursor-not-allowed"
+                : "bg-indigo-600 hover:bg-indigo-700"
+            }` }
         >
-          Log In
+          {loading ? "Checking..." : "Log-in"}
         </button>
 
        

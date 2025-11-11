@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
-import tshirt from "/images/tshirt.jpg";
+import blogImg from "/images/blog.webp";
 
 function Card() {
   const [blogs, setBlogs] = useState([]);
@@ -38,7 +38,7 @@ function Card() {
           {/* Image */}
           <div className="h-48 w-full overflow-hidden">
             <img
-              src={tshirt}
+              src={blogImg}
               alt={blog.title}
               className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
