@@ -12,7 +12,7 @@ let app = express();
 let port = process.env.PORT ||3001;
 await mongoDb()
 
-let allowedOrigins = ['http://localhost:5173']
+let allowedOrigins = ['http://localhost:5173', "https://mernstack-jwt-blog.onrender.com"]
 app.use(cors({origin: allowedOrigins, credentials:true}));  
 app.use(cookieParser());
 app.use(express.json());
