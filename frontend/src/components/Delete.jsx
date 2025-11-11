@@ -61,7 +61,7 @@ function Delete() {
   const DeleteForm = () => {
     return (
       <div className="flex justify-center items-center absolute h-full w-full justify-self-center z-50 bg-black/70" >
-        <form onClick={(e)=> e.stopPropagation()} className="flex gap-2 justify-center items-center text-white">
+        <form onClick={(e)=> e.stopPropagation()} className="flex flex-col-reverse xl:flex-row  gap-2 justify-center items-center text-white">
           <button
             onClick={(e) => {
               e.preventDefault();
