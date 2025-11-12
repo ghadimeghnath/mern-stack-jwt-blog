@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import Card from "./Card";
+import React, { lazy, Suspense, useState } from "react";
+import Loading from "./Loding";
+import { useAppContext } from "../context/AppContext";
+const Card = lazy(() => import("./Card"));
 
 function CardsCtn({ isAdmin = false, admin }) {
-  const [expanded, setExpanded] = useState(false);
   const [height, setHeight] = useState(50);
+  const { blogCount } = useAppContext();
+
   const maxHeight = 150;
 
   const toggleExpand = (e) => {
@@ -11,10 +14,8 @@ function CardsCtn({ isAdmin = false, admin }) {
     if (height < maxHeight) {
       const newHeight = height + 50;
       setHeight(newHeight);
-      setExpanded(false);
     } else {
       setHeight(50);
-      setExpanded(true);
     }
   };
 
@@ -26,9 +27,12 @@ function CardsCtn({ isAdmin = false, admin }) {
     >
       {/* Header (Admin only) */}
       {isAdmin && (
-        <header className="mb-4 border-b border-gray-200 dark:border-gray-800 pb-2">
+        <header className="flex justify-between mb-4 border-b border-gray-200 dark:border-gray-800 pb-2">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
             Admin Dashboard
+          </h2>
+          <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+            blogs : {blogCount}
           </h2>
         </header>
       )}
@@ -42,7 +46,13 @@ function CardsCtn({ isAdmin = false, admin }) {
         }`}
         style={!isAdmin ? { maxHeight: `${height}vh` } : {}}
       >
-        {isAdmin ? <div className="flex-1">{admin}</div> : <Card />}
+        {isAdmin ? (
+          <div className="flex-1">{admin}</div>
+        ) : (
+          <Suspense fallback={<Loading />}>
+            <Card />
+          </Suspense>
+        )}
       </div>
 
       {/* View More Button (Client Only) */}

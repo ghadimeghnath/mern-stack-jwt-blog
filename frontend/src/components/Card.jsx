@@ -1,32 +1,10 @@
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import blogImg from "/images/blog.webp";
+import { useAppContext } from "../context/AppContext";
 
 function Card() {
-  const [blogs, setBlogs] = useState([]);
-
-  const fetchBlogs = async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}blogs/api/allblogs`,{
-        method: 'GET',
-        credentials:'include',
-      });
-      const data = await response.json();
-
-      if (response.ok) {
-        setBlogs(data.data);
-      } else {
-        console.error(data.message);
-
-      }
-    } catch (error) {
-      console.error("Failed to fetch blogs:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
+  const {blogs, setBlogs} = useAppContext();
 
   return (
     <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">

@@ -2,8 +2,8 @@ import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 const Client = lazy(() => import("../client/Client"));
 const Admin = lazy(() => import("../admin/Admin"));
+const Delete = lazy(() => import("../components/Delete"));
 import Create from "../components/Create";
-import Delete from "../components/Delete";
 import Card from "../components/Card";
 import Loding from "../components/Loding";
 import Register from "../auth/Register";
@@ -45,7 +45,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Card/>
+        element: 
+        <Suspense fallback={<Loding />}>
+          <Card/>
+        </Suspense>
       },
       {
         path: "/admin/create",

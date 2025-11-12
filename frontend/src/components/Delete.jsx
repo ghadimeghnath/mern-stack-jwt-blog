@@ -2,35 +2,15 @@ import { useState, useEffect } from "react";
 import { ArrowRight, Trash2Icon, X } from "lucide-react";
 import blogImg from "/images/blog.webp";
 import toast from "react-hot-toast";
+import { useAppContext } from "../context/AppContext";
 
 function Delete() {
-  const [blogs, setBlogs] = useState([]);
   const [blogId, setBlogId] = useState("");
   const [deleteForm, setDeleteForm] = useState(false);
+  const {blogs, setBlogs} = useAppContext()
 
-  const fetchBlogs = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}blogs/api/allblogs`,
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
-      const data = await response.json();
-
-      if (response.ok) {
-        setBlogs(data.data);
-      } else {
-        console.error(data.message);
-      }
-    } catch (error) {
-      console.error("Failed to fetch blogs:", error);
-    }
-  };
 
   const handleDelete = async (e) => {
-    console.log(blogId);
     try {
       const req = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}blogs/api/blogs/deleteBlog`,
@@ -53,10 +33,6 @@ function Delete() {
       toast.error(error.message);
     }
   };
-
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
 
   const DeleteForm = () => {
     return (

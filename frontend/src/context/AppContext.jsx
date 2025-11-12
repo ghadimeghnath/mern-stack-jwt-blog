@@ -10,11 +10,13 @@ export const AppContext = createContext();
 export const AppContextProvider = ({children})=>{
 
     const [showComponent, setShowComponent] = useState(false);
+    const [blogs, setBlogs] = useState([]);
+    const [blogCount, setBlogCount] = useState(0);
     const [active, setActive] = useState('');
     const [user, setUser] = useState(false);
     const [admin, setAdmin]= useState(false);
 
-    // user authentication on first render
+    // user authentication
     const checkUserAuthStatus = async()=>{
        try {
          const request = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/auth/is-auth`,{
@@ -44,7 +46,6 @@ export const AppContextProvider = ({children})=>{
         
         if (data.success) {
             setAdmin(true);
-            setUser(true);
             return <Navigate to={'/admin'} replace/>
         }
     } catch (error) {
@@ -53,12 +54,37 @@ export const AppContextProvider = ({children})=>{
         }
     }
 
+    //fetch blogs on every render
+
+      const fetchBlogs = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}blogs/api/allblogs`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setBlogs(data.data);
+        setBlogCount(data.blogCount);
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error("Failed to fetch blogs:", error);
+    }
+  };
+
     useEffect(()=>{
+        fetchBlogs();
         checkUserAuthStatus();
         checkAdminAuthentication();
     },[])
 
-    const value={showComponent, setShowComponent, active, setActive, user, setUser, admin, setAdmin, checkUserAuthStatus, checkAdminAuthentication };
+    const value={showComponent, setShowComponent, active, setActive, user, setUser, admin, setAdmin, checkUserAuthStatus, checkAdminAuthentication, blogs, setBlogs, blogCount, setBlogCount };
 
    return <AppContext.Provider value={value}>
         {children}

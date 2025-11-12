@@ -3,7 +3,8 @@ import Blog from "../models/blog.js";
 export const AllBlogs = async (req, res)=>{
     try {
         let blogs =  await Blog.find({});
-        res.status(200).json({message: 'blog is successfully retrived', data : blogs})
+        let count = await Blog.countDocuments();
+        res.status(200).json({message: 'blog is successfully retrived', data : blogs, blogCount: count})
     } catch (error) {
         console.error(error);
         res.json({message: 'blog is not retrived', err: error})
