@@ -13,7 +13,7 @@ function ProtectedRoute({children}) {
         if(admin === false){    
         navigate('/admin/login');
     }
-    },[])
+    },[admin])
 
     return(
        children

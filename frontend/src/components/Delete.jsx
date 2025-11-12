@@ -6,17 +6,18 @@ import { useAppContext } from "../context/AppContext";
 
 function Delete() {
   const [blogId, setBlogId] = useState("");
+  const [blogTitle, setBlogTitle] = useState("");
   const [deleteForm, setDeleteForm] = useState(false);
-  const {blogs, setBlogs} = useAppContext()
-
+  const {blogs, setBlogs, fetchBlogs} = useAppContext()
 
   const handleDelete = async (e) => {
+    e.preventDefault()
     try {
       const req = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}blogs/api/blogs/deleteBlog`,
         {
           method: "POST",
-          body: JSON.stringify({ blogId }),
+          body: JSON.stringify({ blogId, blogTitle }),
           headers: {
             "Content-Type": "application/json",
           },
@@ -26,6 +27,9 @@ function Delete() {
       const data = await req.json();
       if (data.success) {
         toast.success(data.message);
+        setBlogId("")
+        setDeleteForm(false);
+        fetchBlogs();
       } else {
         toast.error(data.message);
       }
@@ -41,7 +45,6 @@ function Delete() {
           <button
             onClick={(e) => {
               e.preventDefault();
-              setBlogId("");
               setDeleteForm(false);
             }}
             className="py-2 px-3 rounded border flex justify-center items-center gap-1 cursor-pointer hover:bg-blue-800 transition-all duration-300"
@@ -51,7 +54,7 @@ function Delete() {
           </button>
           <button
             type="submit"
-            onClick={(e) => handleDelete(e)}
+            onClick={(e) => {handleDelete(e)}}
             className="py-2 px-3 rounded border flex justify-center items-center gap-1 cursor-pointer bg-red-600 hover:bg-red-400 transition-all duration-300"
           >
             <Trash2Icon/>
@@ -68,11 +71,12 @@ function Delete() {
          onClick={() => {
             setDeleteForm(true);
             setBlogId(blog._id);
+            setBlogTitle(blog.title);
           }}
           key={blog._id}
           className={`group relative bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 `}
         >
-          {blogId === blog._id && deleteForm && <DeleteForm />}
+          {blogId === blog._id && deleteForm && <DeleteForm/>}
           {/* Image */}
           <div className="h-48 w-full overflow-hidden">
             <img
