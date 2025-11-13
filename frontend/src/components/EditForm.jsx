@@ -19,6 +19,7 @@ function EditForm() {
   const { fetchBlogs } = useAppContext();
 
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
     try {
       const request = await fetch(
@@ -56,6 +57,7 @@ function EditForm() {
   };
 
   const fetchById = async (e) => {
+    setLoading(true)
     try {
       console.log(id);
 
@@ -82,6 +84,8 @@ function EditForm() {
       }
     } catch (error) {
       toast.error("Something went wrong!");
+    } finally{
+      setLoading(false)
     }
   };
   useEffect(() => {
@@ -119,7 +123,7 @@ function EditForm() {
             type="text"
             value={form.title}
             onChange={(e) => setForm({ title: e.target.value })}
-            placeholder="Enter blog title"
+            placeholder={loading? "fetching Title..." : "Enter blog title"}
             className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white/70 dark:bg-gray-800/50 px-4 py-2.5 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all duration-200"
           />
         </div>
@@ -137,7 +141,7 @@ function EditForm() {
             type="text"
             value={form.subtitle}
             onChange={(e) => setForm({ subtitle: e.target.value })}
-            placeholder="Enter blog subtitle"
+            placeholder={loading? "fetching Sub-title..." : "Enter blog sub-title"}
             className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white/70 dark:bg-gray-800/50 px-4 py-2.5 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all duration-200"
           />
         </div>
@@ -155,7 +159,7 @@ function EditForm() {
             value={form.content}
             onChange={(e) => setForm({ content: e.target.value })}
             rows={7}
-            placeholder="Write your blog content here..."
+            placeholder={loading? "fetching Content..." : "Write your blog content here..."}
             className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white/70 dark:bg-gray-800/50 px-4 py-3 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all duration-200 resize-none"
           />
         </div>
