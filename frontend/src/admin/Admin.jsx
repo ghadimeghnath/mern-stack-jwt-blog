@@ -10,7 +10,7 @@ function Admin() {
       <Nav title="Admin" />
 
       {/* Main Content */}
-      <div className="flex flex-1 mt-3 gap-3 px-4 md:px-6 pb-4 overflow-hidden">
+      <div className="flex  mt-3 gap-3 px-4 md:px-6 pb-4 overflow-hidden">
         {/* Sidebar */}
         <div className="md:flex shrink-0">
           <Sidebar />
@@ -20,8 +20,10 @@ function Admin() {
         <main className="flex-1 overflow-hidden">
           <CardsCtn isAdmin={true} admin={<Outlet />} />
         </main>
+        <div className="md:hidden shrink-0">
+          <Sidebar />
+        </div>
       </div>
-      
     </div>
   );
 }

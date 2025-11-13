@@ -50,6 +50,7 @@ function CardsCtn({ isAdmin = false, admin }) {
           <div className="flex-1">{admin}</div>
         ) : (
           <Suspense fallback={<Loading />}>
+            
             <Card />
           </Suspense>
         )}

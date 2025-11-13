@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
-import { TrashIcon, Globe, Edit2 } from "lucide-react";
+import { TrashIcon, Globe, Edit2,  FileEdit } from "lucide-react";
 
 function Sidebar() {
   const { active, setActive } = useAppContext();
@@ -23,6 +23,13 @@ function Sidebar() {
       SideBarLink: "/admin/delete",
       title: "Delete",
       icon: <TrashIcon size={22} />,
+    },
+    ,
+    {
+      id: "4",
+      SideBarLink: "/admin/update",
+      title: "Update",
+      icon: <FileEdit size={22} />,
     },
   ];
 

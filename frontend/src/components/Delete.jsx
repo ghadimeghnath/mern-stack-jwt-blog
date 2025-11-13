@@ -26,10 +26,10 @@ function Delete() {
       );
       const data = await req.json();
       if (data.success) {
-        toast.success(data.message);
         setBlogId("")
         setDeleteForm(false);
         fetchBlogs();
+        toast.success(data.message);
       } else {
         toast.error(data.message);
       }

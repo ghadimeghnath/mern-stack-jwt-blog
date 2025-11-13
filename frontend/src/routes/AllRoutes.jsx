@@ -10,6 +10,8 @@ import Register from "../auth/Register";
 import LogIn from "../auth/Login";
 import ProtectedRoute from "../components/ProtectedRoute";
 import AdminLogin from "../components/AdminLogin";
+import Update from "../components/Update";
+import EditForm from "../components/EditForm";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +65,21 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loding />}>
             <Delete />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/admin/update",
+        element: (
+          <Suspense fallback={<Loding />}>
+            <Update />
+          </Suspense>
+        ),
+      },{
+        path: "/admin/update/:id",
+        element: (
+          <Suspense fallback={<Loding />}>
+            <EditForm />
           </Suspense>
         ),
       },
