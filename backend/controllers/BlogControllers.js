@@ -1,4 +1,5 @@
 import Blog from "../models/blog.js";
+import {v2 as cloudinary} from 'cloudinary';
 
 export const AllBlogs = async (req, res) => {
   try {
@@ -18,7 +19,7 @@ export const AllBlogs = async (req, res) => {
 export const blogById = async (req, res) => {
   try {
     const { id } = await req.body;
-    
+
     if (!id) {
       return res.json({ success: false, message: "Blog id required" });
     }
@@ -36,18 +37,28 @@ export const blogById = async (req, res) => {
 export const AddBlog = async (req, res) => {
   try {
     const { title, subtitle, content } = await req.body;
+    const imageUrl = req.file.path;
+    const imagePublicId = req.file.filename;
 
-    const BlogData = await Blog({
+
+    if (!title || !subtitle || !content) {
+      return res.json({ success: false, message: "Missing detail" });
+    }
+    const BlogData = await Blog.create({
       title: title,
       subtitle: subtitle,
       content: content,
-    }).save();
-    res.status(200).json({ msg: "Data Successfully Stored" });
+      img_url: imageUrl,
+      imagePublicId : imagePublicId,
+    });
+    await BlogData.save();
+    res.status(200).json({ success: true, message: "Blog Created" });
     if (!BlogData) {
-      res.status(500).json({ err: "Data Wasn't Stored" });
+      return res.json({ success: false, message: "Blog isn't created" });
     }
   } catch (error) {
     console.error(error);
+    return res.json({ success: false, message: error.message });
   }
 };
 
@@ -67,20 +78,32 @@ export const deleteBlog = async (req, res) => {
 
 export const updateBlogById = async (req, res) => {
   try {
-    const { id, form } = await req.body;
-    
-      if (!id || !form.title) {
+    const { id, title, subtitle, content } = await req.body;
+
+    if (!id) {
       return res.json({ success: false, message: "Missing Details" });
     }
-    const updateBlog = await Blog.findOne({ _id: id }).updateOne({
-      title: form.title,
-      subtitle: form.subtitle,
-      content: form.content,
+    const blog = await Blog.findOne({ _id: id })
+
+    const imageUrl = req.file? req.file.path : blog.img_url;
+    // get the image name to delete before image
+    const imagePublicId = req.file? req.file.filename : blog.imagePublicId;
+    
+    // delete the before image 
+    if (blog.imagePublicId){
+      await cloudinary.uploader.destroy(blog.imagePublicId);
+    }
+    const updatedBlog = await blog.updateOne({
+      title: title,
+      subtitle: subtitle,
+      content: content,
+      img_url: imageUrl || blog.img_url,
+      imagePublicId: imagePublicId || blog.imagePublicId,
     });
-    if (updateBlog) {
+    if (updatedBlog) {
       return res.json({
         success: true,
-        message: `Blog " ${form.title} " is Updated`,
+        message: `Blog " ${title} " is Updated`,
       });
     }
   } catch (error) {

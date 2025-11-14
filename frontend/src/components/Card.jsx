@@ -16,7 +16,7 @@ function Card() {
           {/* Image */}
           <div className="h-48 w-full overflow-hidden">
             <img
-              src={blogImg}
+              src={blog.img_url || blogImg}
               alt={blog.title}
               className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
             />

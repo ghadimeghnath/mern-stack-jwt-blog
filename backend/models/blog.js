@@ -12,6 +12,14 @@ const BlogSchema = mongoose.Schema({
     content:{
         type: String,
         required: true,
+    },
+    img_url:{
+        type: String,
+        required: true,
+    },
+    imagePublicId: {
+        type: String,
+        required: true,
     }
 })
 
